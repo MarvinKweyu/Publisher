@@ -44,17 +44,4 @@
       <p><input type="submit" value="Add comment"></p>
     </form>
   {% endif %}
-
-
-<!-- 
-{% if new_comment %}
-<h2>You're new comment has been added</h2>
-{% else %}
-<h2>Add new comment</h2>
-<form method="post">
-    {{comment_form.as_p}}
-    {% csrf_token %}
-    <p><input type="submit" value="Add comment"></p>
-</form>
-{% endif %} -->
 {% endblock %}
