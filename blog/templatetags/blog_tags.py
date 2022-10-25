@@ -1,7 +1,8 @@
+import markdown
+from blog.models import Post
 from django import template
 from django.db.models import Count
-from blog.models import Post
-
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
@@ -38,3 +39,9 @@ def get_most_commented(count: int = 5):
     return Post.published.annotate(total_comments=Count("comments")).order_by(
         "-total_comments"
     )[:count]
+
+
+# BUG: fails to render markdown content added via the admin
+@register.filter(name="markdown")
+def markdown_format(text):
+    return mark_safe(markdown.markdown(text))
