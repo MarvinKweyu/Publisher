@@ -11,6 +11,10 @@ class PublishedManager(models.Manager):
 
 
 class Post(models.Model):
+    """
+    Stores a single post .related to :model: `auth.User`
+    """
+
     STATUS_CHOICES = (("draft", "Draft"), ("published", "Published"))
     title = models.CharField(max_length=250)
     # only one post with a slug for a given date
@@ -38,6 +42,7 @@ class Post(models.Model):
             return self.title
 
     def get_absolute_url(self):
+        """Access the full URL of a single post"""
         return reverse(
             "blog:post_detail",
             args=[self.publish.year, self.publish.month, self.publish.day, self.slug],
@@ -45,6 +50,8 @@ class Post(models.Model):
 
 
 class Comments(models.Model):
+    """Shows the views on a specific post. Relates to :model: `blog.Post`"""
+
     # let me get the comment of a post via comment.post or all comments of a post via post.comments.all()
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
     #  name of the user who created the comment

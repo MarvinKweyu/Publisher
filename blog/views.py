@@ -20,6 +20,16 @@ from blog.models import Post, Comments
 
 
 def post_list(request, tag_slug=None):
+    """
+    Display a list of published posts
+
+    **Context**
+    ``Post``
+        An instance of :model:`blog.Post`
+
+    **Template:**
+      :template:`blog/post/list.html`
+    """
     object_list = Post.published.all()
     tag = None
 
