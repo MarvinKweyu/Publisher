@@ -3,6 +3,16 @@
 
 > An in-progress implementation of a publishing platform intended to mimic the **[CommunityWrites project](https://github.com/MarvinKweyu/CommunityWrites)**
 
+## Key Features
+
+:white_check_mark: Article tagging
+
+:white_check_mark: Comments
+
+:white_check_mark: Email sharing
+
+:white_check_mark: Full-text search
+
 ## Setup 
 
 ### Bare metal
