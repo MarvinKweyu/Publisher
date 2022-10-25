@@ -2,9 +2,9 @@ from django.core.mail import send_mail
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from taggit.models import Tag
-
-from blog.forms import EmailPostForm, CommentForm
+from blog.forms import EmailPostForm, CommentForm, SearchForm
 from blog.models import Post, Comments
 
 # class PostListView(ListView):
@@ -106,4 +106,32 @@ def post_share(request, post_id):
 
     return render(
         request, "blog/post/share.html", {"post": post, "form": form, "sent": sent}
+    )
+
+
+def post_search(request):
+    form = SearchForm()
+    query = None
+    results = []
+    if "query" in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            #  perform a serch but order results by how many words of the query are contained in the object
+            query = form.cleaned_data["query"]
+            # let results contained in title prevail. values from A - D
+            search_vector = SearchVector("title", weight="A") + SearchVector(
+                "body", weight="B"
+            )
+            search_query = SearchQuery(query)
+            results = (
+                Post.published.annotate(
+                    search=search_vector, rank=SearchRank(search_vector, search_query)
+                )
+                .filter(rank__gte=0.3)
+                .order_by("-rank")
+            )
+    return render(
+        request,
+        "blog/post/search.html",
+        {"form": form, "query": query, "results": results},
     )

@@ -6,7 +6,9 @@
 
 {% block title %}Publisher{% endblock %}
 {% block content %}
-<h1>Publisher</h1>
+<h1>
+    <a href="{% url "blog:post_list" %}">Publisher</a>
+</h1>
 
 {% if tag %}
 <h2>Posts tagged with "{{tag.name}}"</h2>
@@ -21,7 +23,7 @@
 
 </p>
 <p class="date"> Published {{post.publish }} by {{post.author}}</p>
-{{post.body|markdown|truncatewords_html:30}}
+{{post.body|markdown|truncatewords_html:50}}
 {% endfor %}
 <!-- using function-based view -->
 {% include "pagination.html" with page=posts %}

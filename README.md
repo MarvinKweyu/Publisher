@@ -6,6 +6,10 @@
 ## Setup 
 
 ### Bare metal
+**Note:** 
+
+**Install postgresql on your host machine**
+
 Setup a virtual environment, install requirements , run migrations and run the server
 
 ```bash
