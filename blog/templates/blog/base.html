@@ -1,3 +1,5 @@
+<!-- locate blog_tags.py -->
+{% load blog_tags %}
 <!-- this loads the static template tags provided by django.cotnrib.staticfiles locate htis in installed apps settings -->
 {% load static %}
 <!DOCTYPE html>
@@ -16,7 +18,21 @@
     </div>
     <div id="sidebar">
         <h2>Publisher</h2>
-        <p>This is Publisher</p>
+        <p>This is Publisher Total posts so far {% total_posts %}</p>
+        <h3>Latest posts</h3>
+        {% show_latest_posts 3 %}
+
+        <h3>Trending posts</h3>
+        {% show_most_commented_posts 5%}
+        <h3>Most commented</h3>
+        {% get_most_commented as most_commented %}
+        <ul>
+            {% for post in most_commented %}
+            <li>
+                <a href="{{post.get_absolute_url}}"> {{post.title}}</a>
+               </li>
+            {% endfor %}
+        </ul>
 </div>
     
 </body>
