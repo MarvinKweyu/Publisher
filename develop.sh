@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# WIP
+
 #  this script creates a database with the user and credentials provided ,installs the requirements in a created virtual environment, runs the migrations and eventually runs the server
 
 # stop in case anything fails
