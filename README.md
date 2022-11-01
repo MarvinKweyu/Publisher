@@ -31,11 +31,19 @@ bash develop.sh
 
 ### It just works(Docker)
 
-(Documentation in progress)
+**Development**
 
 With *docker* and *docker-compose* installed , clone the repo and run the following command at teh root of the project.
 ```bash
-docker-compose up -d --build
+docker-compose -f docker-compose.yml up -d --build
+
+```
+
+**Production**
+
+```bash
+docker-compose -f docker-compose.prod.yml up -d --build
+
 ```
 
 Access the project via: 1**27.0.0.1:8000/home**
